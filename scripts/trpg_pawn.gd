@@ -15,7 +15,7 @@ export var move_range = 3
 export var jump_height = 1
 
 # const
-var MOVEMENT_SPEED = 800.0
+var MOVEMENT_SPEED = 600.0
 
 
 # functions:

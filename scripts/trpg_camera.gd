@@ -1,13 +1,20 @@
 extends Spatial
 
 # variables:
-var pitch = -45.0
+var pitch = -30.0
 var yaw = -45.0
+var w_mod = Vector3(0, 0, 0)
+var a_mod = Vector3(0, 0, 0)
+var s_mod = Vector3(0, 0, 0)
+var d_mod = Vector3(0, 0, 0)
+var size = 15
+var pos = Vector3(0, 0, 0)
+var arena_size = 15
+var rotat = int(fmod(self.yaw,360.0)/45)
 
 # const:
 const ROTATION_SPEED = 6.0
-const MOVEMENT_SPEED = 4.0
-
+const MOVEMENT_SPEED = 6.0
 
 # functions:
 func logic(var delta, var pawn):
@@ -15,29 +22,96 @@ func logic(var delta, var pawn):
 	self._rotate_arround(delta)
 	return self._get_selected_tile()
 
-
 # aux functions:
 func _follow_pawn(var delta, var pawn):
-	var from = self.get_translation()
-	var to = pawn.get_translation()
-	if from != to:
-		var move = from.linear_interpolate(to, delta * MOVEMENT_SPEED)
-		self.set_translation(move)
+	return
 
 func _rotate_arround(var delta):
+	var d = .25
+	if rotat == 0:
+		w_mod = Vector3(0, 0, -1*d)
+		a_mod = Vector3(-1*d, 0, 0)
+		s_mod = Vector3(0, 0, 1*d)
+		d_mod = Vector3(1*d, 0, 0)
+	elif rotat == -1 or rotat == 7:
+		w_mod = Vector3((1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		a_mod = Vector3(-(1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		s_mod = Vector3(-(1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+		d_mod = Vector3((1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+	elif rotat == -2 or rotat == 6:
+		a_mod = Vector3(0, 0, -1*d)
+		s_mod = Vector3(-1*d, 0, 0)
+		d_mod = Vector3(0, 0, 1*d)
+		w_mod = Vector3(1*d, 0, 0)
+	elif rotat == -3 or rotat == 5:
+		a_mod = Vector3((1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		s_mod = Vector3(-(1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		d_mod = Vector3(-(1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+		w_mod = Vector3((1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+	elif rotat == 4 or rotat == -4:
+		s_mod = Vector3(0, 0, -1*d)
+		d_mod = Vector3(-1*d, 0, 0)
+		w_mod = Vector3(0, 0, 1*d)
+		a_mod = Vector3(1*d, 0, 0)
+	elif rotat == -5 or rotat == 3:
+		s_mod = Vector3((1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		d_mod = Vector3(-(1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		w_mod = Vector3(-(1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+		a_mod = Vector3((1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+	elif rotat == -6 or rotat == 2:
+		d_mod = Vector3(0, 0, -1*d)
+		w_mod = Vector3(-1*d, 0, 0)
+		a_mod = Vector3(0, 0, 1*d)
+		s_mod = Vector3(1*d, 0, 0)
+	elif rotat == -7 or rotat == 1:
+		d_mod = Vector3((1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		w_mod = Vector3(-(1/sqrt(2))*d, 0, -(1/sqrt(2))*d)
+		a_mod = Vector3(-(1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+		s_mod = Vector3((1/sqrt(2))*d, 0, (1/sqrt(2))*d)
+	if Input.is_key_pressed(KEY_W):
+		pos = self.get_translation() + w_mod * MOVEMENT_SPEED
+		pos.x = clamp(pos.x, -arena_size, arena_size)
+		pos.z = clamp(pos.z, -arena_size, arena_size)
+	if Input.is_key_pressed(KEY_A):
+		pos = self.get_translation() + a_mod * MOVEMENT_SPEED
+		pos.x = clamp(pos.x, -arena_size, arena_size)
+		pos.z = clamp(pos.z, -arena_size, arena_size)
+	if Input.is_key_pressed(KEY_S):
+		pos = self.get_translation() + s_mod * MOVEMENT_SPEED
+		pos.x = clamp(pos.x, -arena_size, arena_size)
+		pos.z = clamp(pos.z, -arena_size, arena_size)
+	if Input.is_key_pressed(KEY_D):
+		pos = self.get_translation() + d_mod * MOVEMENT_SPEED
+		pos.x = clamp(pos.x, -arena_size, arena_size)
+		pos.z = clamp(pos.z, -arena_size, arena_size)
+	if Input.is_action_just_pressed("zoom_in"):
+		self.size -= 5
+	if Input.is_action_just_pressed("zoom_out"):
+		self.size += 5
 	if Input.is_action_just_pressed("ui_left"):
-		self.yaw -= 90.0
+		self.yaw -= 45.0
 	if Input.is_action_just_pressed("ui_right"):
-		self.yaw += 90.0
+		self.yaw += 45.0
 	if Input.is_action_just_pressed("ui_up"):
 		self.pitch -= 15.0
 	if Input.is_action_just_pressed("ui_down"):
 		self.pitch += 15.0
-	self.pitch = clamp(self.pitch, -60.0, -30.0)
+	self.pitch = clamp(self.pitch, -75.0, -15.0)
 	var from = self.get_rotation()
 	var to = Vector3(deg2rad(self.pitch), deg2rad(self.yaw), 0.0)
-	var euler = from.linear_interpolate(to, delta * ROTATION_SPEED)
-	self.set_rotation(euler)
+	if from != to:
+		var euler = from.linear_interpolate(to, delta * ROTATION_SPEED)
+		self.set_rotation(euler)
+		rotat = int(fmod(self.yaw,360.0)/45)
+	self.size = clamp(self.size, 10, 25)
+	var size_t = get_child(0).get_size()
+	if size_t != size:
+		if size > size_t:
+			self.get_child(0).set_size(get_child(0).get_size()+d)
+		else:
+			self.get_child(0).set_size(get_child(0).get_size()-d)
+	if self.get_translation() != pos:
+		self.set_translation(self.get_translation().linear_interpolate(pos, delta * MOVEMENT_SPEED))
 
 func _get_selected_tile():
 	if Input.is_action_just_pressed("ui_accept"):

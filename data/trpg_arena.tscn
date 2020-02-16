@@ -7,10 +7,13 @@
 [ext_resource path="res://data/trpg_enemy.tscn" type="PackedScene" id=5]
 
 [node name="TRPGArena" type="Spatial"]
-editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="TRPGTiles" type="Spatial" parent="."]
+editor/display_folded = true
+
+[node name="TRGPTile11" parent="TRPGTiles" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 3 )
 
 [node name="TRGPTile" parent="TRPGTiles" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1 )
@@ -355,7 +358,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2, -9 )
 
 [node name="TRGPTile20" parent="TRPGTiles" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5, 5 )
 
 [node name="TRGPTile104" parent="TRPGTiles" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, -1, 3, -11 )
@@ -401,7 +404,7 @@ transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.
 [node name="TRPGAlly" parent="TRPGAllies" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 5 )
 move_range = 4
-jump_height = 2
+jump_height = 5
 
 [node name="TRPGAlly3" parent="TRPGAllies" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 5 )
