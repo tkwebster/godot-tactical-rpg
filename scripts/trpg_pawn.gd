@@ -99,6 +99,16 @@ func _move(var delta):
 		var from = self.get_translation()
 		var to = self.path.front().get_translation()
 		var dir = to - from
+		if dir.x != 0:
+			if dir.x > 0:
+				self.rotation_degrees.y = 90
+			if dir.x < 0:
+				self.rotation_degrees.y = 270
+		if dir.z != 0:
+			if dir.z > 0:
+				self.rotation_degrees.y = 0
+			if dir.z < 0:
+				self.rotation_degrees.y = 180
 		var vel = dir.normalized() * delta * MOVEMENT_SPEED
 		vel = self.move_and_slide(vel, Vector3.UP)
 		if dir.length() < 0.3:
