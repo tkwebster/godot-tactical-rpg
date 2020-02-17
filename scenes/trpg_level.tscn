@@ -18,6 +18,7 @@ glow_intensity = 0.1
 [node name="TRPGLevel" type="Spatial"]
 
 [node name="TRPGArena" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.588538, 0.974932, -1.15304 )
 
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( -0.707107, 0.40558, -0.579228, 0, 0.819152, 0.573577, 0.707107, 0.40558, -0.579228, 0, 8, 0 )
