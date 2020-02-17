@@ -129,11 +129,12 @@ func _rotate_arround(var delta):
 		self.yaw += 45.0
 	if Input.is_action_just_pressed("ui_up"):
 		self.pitch -= 15.0
+		if self.pitch < -75.0:
+			self.pitch = -15.0
 	if Input.is_action_just_pressed("ui_down"):
 		self.pitch += 15.0
-	if self.pitch < -75.0:
-		self.pitch = -15.0
-	self.pitch = clamp(self.pitch, -75.0, -15.0)
+		if self.pitch > -15.0:
+			self.pitch = -75.0
 	var from = self.get_rotation()
 	var to = Vector3(deg2rad(self.pitch), deg2rad(self.yaw), 0.0)
 	if from != to:
