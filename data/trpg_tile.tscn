@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/trpg_tile.gd" type="Script" id=1]
+[ext_resource path="res://grass.jpg" type="Texture" id=2]
 
 [sub_resource type="ConcavePolygonShape" id=1]
 data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
@@ -8,7 +9,8 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 [sub_resource type="CubeMesh" id=2]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.133333, 0.141176, 0.160784, 1 )
+albedo_color = Color( 0.137255, 0.501961, 0, 0 )
+albedo_texture = ExtResource( 2 )
 
 [sub_resource type="PlaneMesh" id=4]
 
